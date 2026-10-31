@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Nav from '../../Components/templates/Nav'
 import axios from '../../utils/axios'
 import Headers from '../../Components/templates/Headers'
@@ -20,21 +20,19 @@ function Home(){
     }
   }
 
-  const getTrending = async ()=>{
+  const getTrending = useCallback(async ()=>{
     try{
       const {data} = await axios.get(`/trending/${category}/day`);
       setTrending(data.results);
     }catch(err){
       console.log(err)
     }
-  }
+  },[category])
   
-  
-  // eslint-disable-next-line
   useEffect(()=>{
     getHeaderWallpaper();
     getTrending();
-  },[category])
+  },[getTrending])
 
   console.log(wallpaper);
   return (

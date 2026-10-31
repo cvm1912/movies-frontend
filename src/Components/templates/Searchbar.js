@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import axios from '../../utils/axios'
 
@@ -8,7 +8,7 @@ function Searchbar() {
     const [query, setQuery] = useState("");
     const[search,setSearches]=useState();
     
-  const getSearches = async ()=>{
+  const getSearches = useCallback(async ()=>{
     try{
       const {data} = await axios.get(`/search/multi?query=${query}`);
       console.log(data.results)
@@ -18,12 +18,11 @@ function Searchbar() {
     }catch(err){
       console.log(err)
     }
-  }
+  },[query])
 
-  // eslint-disable-next-line
   useEffect(()=>{
      getSearches();
-  },[query])
+  },[getSearches])
 
     return (
         <div className="w-full h-[10vh] flex items-center justify-center px-6 relative">

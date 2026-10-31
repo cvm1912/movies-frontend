@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from '../utils/axios'
 import Searchbar from "../Components/templates/Searchbar";
@@ -10,19 +10,18 @@ function Tv() {
   const [category, setCategory] = useState("popular")
   const [tvShows, setTvShows] = useState([])
 
-  const getTv = async () => {
+  const getTv = useCallback(async () => {
     try {
       const { data } = await axios.get(`/tv/${category}`)
       setTvShows(data.results)
     } catch (err) {
       console.log(err)
     }
-  }
+  }, [category])
 
-  // eslint-disable-next-line
   useEffect(() => {
     getTv()
-  }, [category])
+  }, [getTv])
 
   return (
     <div className="w-full h-full overflow-auto text-white">
