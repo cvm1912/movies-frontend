@@ -10,13 +10,13 @@ function Headers({ data }) {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      className="w-full h-[50vh] flex flex-col justify-end p-[5%]"
+      className="w-full h-[40vh] md:h-[50vh] flex flex-col justify-end p-[5%]"
     >
-      <h1 className="text-5xl font-black text-white">
+      <h1 className="text-2xl sm:text-3xl md:text-5xl font-black text-white">
         {data.name || data.title || data.original_name || data.original_title}
       </h1>
 
-      <p className="text-white w-[70%] mt-2">
+      <p className="text-white w-full md:w-[70%] mt-2 text-sm md:text-base">
         {data.overview.slice(0, 200)}...{" "}
         <Link to="#" className="text-red-400">more</Link>
       </p>

@@ -25,7 +25,7 @@ function Tv() {
 
   return (
     <div className="w-full h-full overflow-auto text-white">
-      <div className="w-full h-[10vh] flex items-center gap-3 justify-between px-10 pt-5">
+      <div className="w-full flex flex-wrap items-center gap-3 justify-between px-4 md:px-10 pt-5 pb-3">
         <div className="flex items-center gap-3">
           <i onClick={() => navigate(-1)} className="ri-arrow-left-line text-2xl text-red-400 cursor-pointer"></i>
           <h1 className="text-2xl text-zinc-400 font-semibold">TV Shows</h1>
