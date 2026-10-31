@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Searchbar from "../../Components/templates/Searchbar";
 import Dropdown from "../../Components/templates/Dropdown";
@@ -17,7 +17,7 @@ function Trending() {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
 
-  const getTrending = async (reset = false) => {
+  const getTrending = useCallback(async (reset = false) => {
     try {
       const currentPage = reset ? 1 : page
       const { data } = await axios.get(`/trending/${category}/${duration}?page=${currentPage}`)
@@ -33,13 +33,14 @@ function Trending() {
     } catch (err) {
       console.log(err)
     }
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, duration])
 
   // eslint-disable-next-line
   useEffect(() => {
     setHasMore(true)
     getTrending(true)
-  }, [category, duration])
+  }, [getTrending])
 
   return (
     <div id="scrollDiv" className="w-full h-full overflow-auto text-white">

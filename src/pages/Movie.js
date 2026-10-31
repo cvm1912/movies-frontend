@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from '../utils/axios'
 import Searchbar from "../Components/templates/Searchbar";
@@ -10,19 +10,19 @@ function Movie() {
   const [category, setCategory] = useState("popular")
   const [movies, setMovies] = useState([])
 
-  const getMovies = async () => {
+  const getMovies = useCallback(async () => {
     try {
       const { data } = await axios.get(`/movie/${category}`)
       setMovies(data.results)
     } catch (err) {
       console.log(err)
     }
-  }
+  }, [category])
 
   // eslint-disable-next-line
   useEffect(() => {
     getMovies()
-  }, [category])
+  }, [getMovies])
 
   return (
     <div className="w-full h-full overflow-auto text-white">

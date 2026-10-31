@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from '../utils/axios'
 import Searchbar from "../Components/templates/Searchbar";
@@ -10,19 +10,19 @@ function Popular() {
   const [category, setCategory] = useState("movie")
   const [popular, setPopular] = useState([])
 
-  const getPopular = async () => {
+  const getPopular = useCallback(async () => {
     try {
       const { data } = await axios.get(`/${category}/popular`)
       setPopular(data.results)
     } catch (err) {
       console.log(err)
     }
-  }
+  }, [category])
 
   // eslint-disable-next-line
   useEffect(() => {
     getPopular()
-  }, [category])
+  }, [getPopular])
 
   return (
     <div id="scrollDiv" className="w-full h-full overflow-auto text-white">
